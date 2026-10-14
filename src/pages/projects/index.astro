@@ -1,0 +1,8 @@
+---
+import Base from '../../layouts/Base.astro';
+import {projects} from '../../lib/data';
+---
+<Base title="Open-source projects" description="Discover documented, curated open-source projects maintained by AppKade.">
+ <div class="page-heading"><p class="eyebrow">Explore the code</p><h1>Open-source projects</h1><p class="lede">Working projects maintained by the AppKade community. Read the documentation, try them, and open a pull request.</p></div>
+ <section class="section"><div class="grid">{projects.length?projects.map(p=><article class="card"><p class="tagline">{p.category} · {p.status}</p><h3><a href={`/projects/${p.slug}/`}>{p.name}</a></h3><p>{p.description}</p><div class="taglist">{p.tags.map(t=><span class="pill">{t}</span>)}</div><div class="foot"><a href={`/projects/${p.slug}/`}>Details →</a><a href={`https://github.com/${p.repo}`}>GitHub ↗</a></div></article>):<div class="empty"><h3>No published projects</h3><p>Check back as the AppKade organization publishes documented projects.</p><a href="https://github.com/AppKade">Explore GitHub →</a></div>}</div></section>
+</Base>
