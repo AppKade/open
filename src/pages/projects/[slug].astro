@@ -3,7 +3,7 @@ import Base from '../../layouts/Base.astro';
 import {projects} from '../../lib/data';
 export function getStaticPaths(){return projects.map(project=>({params:{slug:project.slug},props:{project}}));}
 const { project } = Astro.props;
-const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || '';
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || '0x4AAAAAAFW2WZiJXaN-0Adx';
 ---
 <Base title={project.name} description={project.description}>
  <div class="page-heading"><a class="small" href="/projects/">← All projects</a><p class="eyebrow" style="margin-top:24px">{project.category} · {project.status}</p><h1>{project.name}</h1><p class="lede">{project.description}</p><div class="button-row"><a class="button" href={`https://github.com/${project.repo}`}>View source on GitHub ↗</a><a class="button ghost" href={`https://github.com/${project.repo}/issues`}>Good first issues →</a></div></div>
