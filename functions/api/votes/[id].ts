@@ -1,3 +1,4 @@
+type D1Database = {prepare(sql:string):{bind(...args:Array<string|number>):{first<T=Record<string,unknown>>():Promise<T|null>;run():Promise<unknown>}}};
 interface Env { DB: D1Database; TURNSTILE_SECRET?: string; VOTE_COOKIE_SECRET?: string }
 type Ctx = {request: Request; env: Env; params: {id?: string|string[]}};
 const cookieName = 'ak_open_visitor';
