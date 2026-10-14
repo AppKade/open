@@ -1,0 +1,43 @@
+---
+import Base from '../../layouts/Base.astro';
+import {projects} from '../../lib/data';
+export function getStaticPaths(){return projects.map(project=>({params:{slug:project.slug},props:{project}}));}
+const { project } = Astro.props;
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || '0x4AAAAAAFW2WZiJXaN-0Adx';
+---
+<Base title={project.name} description={project.description}>
+ <div class="page-heading"><a class="small" href="/projects/">← All projects</a><p class="eyebrow" style="margin-top:24px">{project.category} · {project.status}</p><h1>{project.name}</h1><p class="lede">{project.description}</p><div class="button-row"><a class="button" href={`https://github.com/${project.repo}`}>View source on GitHub ↗</a><a class="button ghost" href={`https://github.com/${project.repo}/issues`}>Good first issues →</a></div></div>
+ <div class="detail-grid"><div><section class="section"><h2>Get started</h2><p class="muted">Clone the repository and run it locally. Follow the README for any project-specific setup.</p><div class="codebox"><pre><code>{project.installation}</code></pre></div></section><section class="section"><h2>Contribute to this project</h2><p class="muted">Help improve the documentation, fix a bug or add a feature. Credit is based on verifiable merged pull requests.</p><a class="text-link" href={`https://github.com/${project.repo}/pulls`}>View pull requests ↗</a><p><a class="text-link" href="/docs/contributing/">Read recognition policy →</a></p></section></div>
+  <aside><div class="card"><h3>Project details</h3><p class="muted">Status <strong>{project.status}</strong></p><p class="muted">Language <strong>{project.language}</strong></p><p class="muted">Repository <a href={`https://github.com/${project.repo}`}>{project.repo}</a></p><div class="taglist">{project.tags.map(t=><span class="pill">{t}</span>)}</div><div class="line"></div><h3>Community interest</h3><p class="muted small">Upvotes reflect interest, not contributor points.</p><div class="vote" data-vote-project={project.repoId} data-turnstile-sitekey={siteKey}><button type="button" class="button ghost" disabled aria-label={`Upvote ${project.name}`}>♡ Upvote</button><strong class="count" aria-live="polite">–</strong><span class="muted small">votes</span><span class="status" role="status" aria-live="polite">Loading</span></div>{siteKey?<div class="cf-turnstile" data-sitekey={siteKey} data-size="flexible" style="margin-top:12px"></div>:<p class="muted small">Voting is awaiting security configuration.</p>}</div></aside></div>
+ {siteKey&&<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
+ <script>
+  const voting = document.querySelector<HTMLElement>('[data-vote-project]');
+  if(voting){
+   const id=voting.dataset.voteProject;
+   const button=voting.querySelector<HTMLButtonElement>('button')!;
+   const count=voting.querySelector<HTMLElement>('.count')!;
+   const status=voting.querySelector<HTMLElement>('.status')!;
+   const widget=document.querySelector<HTMLElement>('.cf-turnstile');
+   let voted=false;
+   const say=(text:string)=>status.textContent=text;
+   async function reload(){
+     try{const r=await fetch(`/api/votes/${id}`,{credentials:'same-origin'});if(!r.ok)throw Error('unavailable');
+       const j=await r.json();count.textContent=String(j.count);voted=Boolean(j.voted);button.textContent=voted?'♥ Remove vote':'♡ Upvote';button.disabled=!widget;say(widget?'':'Voting is not configured');
+     }catch{count.textContent='–';button.disabled=true;say('Votes unavailable');}
+   }
+   button.addEventListener('click',async()=>{
+     // Widget tokens are single-use; request a new one after each vote operation.
+     const input=widget?.querySelector<HTMLInputElement>('[name="cf-turnstile-response"]');
+     const token=input?.value;
+     if(!token){say('Complete the verification to vote');return;}
+     button.disabled=true; say('Saving…');
+     try{const r=await fetch(`/api/votes/${id}`,{method:voted?'DELETE':'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',body:JSON.stringify({token})});
+       if(!r.ok){const j=await r.json();throw new Error(j.error||'Voting failed');}
+       await reload();
+     }catch(e){say(e instanceof Error?e.message:'Voting failed');}
+     finally{(window as any).turnstile?.reset?.();button.disabled=false;}
+   });
+   reload();
+  }
+ </script>
+</Base>

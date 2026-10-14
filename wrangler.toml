@@ -1,0 +1,9 @@
+name = "appkade-open"
+compatibility_date = "2026-10-14"
+pages_build_output_dir = "./dist"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "appkade-open"
+database_id = "cfb6805a-9019-4d55-9c6c-c64296450ed7"
+preview_database_id = "DB"

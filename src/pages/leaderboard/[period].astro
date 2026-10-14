@@ -1,0 +1,6 @@
+---
+import Leaderboard from '../../components/Leaderboard.astro';
+export function getStaticPaths(){return [{params:{period:'month'}},{params:{period:'newcomers'}}];}
+const {period}=Astro.params;
+---
+<Leaderboard period={period as 'month'|'newcomers'} />

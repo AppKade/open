@@ -1,0 +1,16 @@
+[
+  {
+    "repoId": 1419259262,
+    "repo": "AppKade/open",
+    "slug": "appkade-open",
+    "name": "AppKade Open Website",
+    "description": "The open-source website for discovering AppKade projects, contributing to them, and recognizing verified GitHub contributions.",
+    "category": "Developer tools",
+    "status": "experimental",
+    "featured": true,
+    "homepage": "https://open.appkade.lk",
+    "installation": "git clone https://github.com/AppKade/open.git\ncd open\ncorepack enable\npnpm install\npnpm dev",
+    "language": "TypeScript",
+    "tags": ["Astro", "Open source", "Cloudflare"]
+  }
+]
