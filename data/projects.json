@@ -1,5 +1,41 @@
 [
   {
+    "repoId": 1421039638,
+    "repo": "AppKade/lanka-qr-cli",
+    "slug": "lanka-qr-cli",
+    "name": "LankaQR CLI",
+    "description": "Inspect QR payloads, parse TLV fields, and verify CRC checksums offline. An experimental developer toolkit, not a certified payment implementation.",
+    "category": "Developer tools",
+    "status": "experimental",
+    "featured": true,
+    "homepage": "https://github.com/AppKade/lanka-qr-cli",
+    "installation": "# Requires Node.js 22+\ngit clone https://github.com/AppKade/lanka-qr-cli.git\ncd lanka-qr-cli\nnpm install\nnpm test\nnpm run build\nnpm run dev -- parse \"00020153031445802LK\"",
+    "language": "TypeScript",
+    "tags": [
+      "CLI",
+      "QR payloads",
+      "Offline"
+    ]
+  },
+  {
+    "repoId": 1421038454,
+    "repo": "AppKade/legacy-bridge",
+    "slug": "legacy-bridge",
+    "name": "Legacy Bridge",
+    "description": "Inspect SOAP/WSDL operations and run preliminary XML and local import checks. MCP and REST adapter generation is planned.",
+    "category": "Developer tools",
+    "status": "experimental",
+    "featured": false,
+    "homepage": "https://github.com/AppKade/legacy-bridge",
+    "installation": "# Requires Node.js 20+\ngit clone https://github.com/AppKade/legacy-bridge.git\ncd legacy-bridge\nnpm install\nnpm run dev -- inspect examples/inventory.wsdl\nnpm run dev -- validate examples/inventory.wsdl --json",
+    "language": "TypeScript",
+    "tags": [
+      "CLI",
+      "SOAP / WSDL",
+      "Offline"
+    ]
+  },
+  {
     "repoId": 1419259262,
     "repo": "AppKade/open",
     "slug": "appkade-open",
@@ -7,10 +43,14 @@
     "description": "The open-source website for discovering AppKade projects, contributing to them, and recognizing verified GitHub contributions.",
     "category": "Developer tools",
     "status": "experimental",
-    "featured": true,
+    "featured": false,
     "homepage": "https://open.appkade.lk",
     "installation": "git clone https://github.com/AppKade/open.git\ncd open\ncorepack enable\npnpm install\npnpm dev",
     "language": "TypeScript",
-    "tags": ["Astro", "Open source", "Cloudflare"]
+    "tags": [
+      "Astro",
+      "Open source",
+      "Cloudflare"
+    ]
   }
 ]
