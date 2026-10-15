@@ -159,7 +159,7 @@
 .open-site .manifesto-point {width: 6px;height: 6px;background: #64ca82;border-radius: 2px;transform: rotate(45deg);}
 .open-site .manifesto-strip a {font-size: .78rem;font-weight: 700;text-decoration: none;color: #b0eebd;}
 /* Project catalog & card patterns */
-.open-site .project-grid {grid-template-columns: repeat(3,minmax(0,1fr));}
+.open-site .project-grid {grid-template-columns: repeat(2,minmax(0,1fr));}
 .open-site .project-card {min-height: 310px;display: flex;flex-direction: column;transition: border-color .2s,transform .2s,box-shadow .2s;overflow: hidden;}
 .open-site .project-card::before {content: "";position: absolute;width: 190px;height: 160px;right: -60px;top: -73px;background: radial-gradient(ellipse,rgba(81,182,107,.11),transparent 72%);pointer-events: none;}
 .open-site .project-card:hover {border-color: #527c5b;box-shadow: 0 22px 43px rgba(0,0,0,.19);transform: translateY(-4px);}
