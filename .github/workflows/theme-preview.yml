@@ -1,12 +1,12 @@
-name: Forest Orbit preview
+name: UI preview
 on:
   push:
-    branches: [feat/forest-orbit-theme]
+    branches: [feat/forest-orbit-theme, feat/cosmic-space-redesign]
 permissions:
   contents: read
   deployments: write
 concurrency:
-  group: forest-orbit-preview
+  group: appkade-ui-preview-${{ github.ref_name }}
   cancel-in-progress: true
 jobs:
   deploy-preview:
@@ -25,4 +25,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=appkade-open --branch=feat/forest-orbit-theme
+          command: pages deploy dist --project-name=appkade-open --branch=${{ github.ref_name }}
