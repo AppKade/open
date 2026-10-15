@@ -2,13 +2,13 @@
 
 **Build together. Grow together.** Public AppKade open-source projects and GitHub-verifiable contributor recognition.
 
-- Site: https://open.appkade.lk (custom domain pending launch)
+- Site: https://open.appkade.lk
 - Cloudflare preview: https://appkade-open.pages.dev (available after first successful deployment)
 - Repository: https://github.com/AppKade/open
 
 ## Stack
 
-Astro static output, Starlight docs with the original Lucode theme, Cloudflare Pages, Cloudflare Pages Functions, D1, Cloudflare Turnstile. GitHub is the source of truth for projects and contribution history. D1 stores anonymous project votes only.
+A single-page Astro site, self-hosted Space Grotesk and Source Sans 3 fonts, Cloudflare Pages, Pages Functions, D1, and Cloudflare Turnstile. GitHub is the source of truth for projects and contribution history. D1 stores anonymous project votes only.
 
 ## Development
 
@@ -35,7 +35,7 @@ pnpm preview
 
 Edit `data/projects.json` with verified public repositories owned by the AppKade organization. Include the **numeric** GitHub repository ID. New projects require a working README and actual installation instructions; do not invent release or contributor metrics. `pnpm sync` generates `data/contributors.json` and `data/activity.json` from GitHub's merged PRs. CI sync runs daily without pushing generated files back to git.
 
-PR labels recognized for scoring: `type:feature`, `type:fix`, `type:docs`, `type:test`; others receive 3 points. First accepted PR adds 5 points, bot PRs are excluded and one PR is counted once. See `/docs/contributing/`.
+PR labels recognized for scoring: `type:feature`, `type:fix`, `type:docs`, `type:test`; others receive 3 points. First accepted PR adds 5 points, bot PRs are excluded and one PR is counted once. See `docs/recognition.md` and the expandable contribution policy on the homepage.
 
 ### D1 voting
 
@@ -61,3 +61,9 @@ No marketplace database, no AppKade accounts, no extra auth provider, and no adm
 ## License
 
 MIT license for this website's original code. Repository licenses for other projects are independent.
+
+## Single-page UI
+
+Projects, local setup, contribution guidance, contributor histories, and recent merged PRs live on `/`. Navigation uses native section anchors and details disclosures. Legacy project, contributor, ranking, and documentation URLs redirect to the matching sections. All-time points and contribution histories remain backed by GitHub snapshots.
+
+`src/styles/open.css` owns the public UI. The AppKade mark in `public/favicon.svg` matches the marketplace logo geometry and original green colours; the Open label stays separate. Decorative hero artwork uses that mark and CSS. Voting challenges render only when their disclosure is opened, and every project retains its own widget and vote state.

@@ -1,7 +1,7 @@
 name: UI preview
 on:
   push:
-    branches: [feat/forest-orbit-theme, feat/cosmic-space-redesign]
+    branches: [feat/forest-orbit-theme, feat/cosmic-space-redesign, feat/single-page-open]
 permissions:
   contents: read
   deployments: write
