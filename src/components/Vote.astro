@@ -1,0 +1,47 @@
+---
+const { project } = Astro.props;
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || '0x4AAAAAAFW2WZiJXaN-0Adx';
+---
+<div class="vote" data-vote-project={project.repoId} data-turnstile-sitekey={siteKey}>
+  <div class="vote-controls"><button type="button" class="button secondary" disabled aria-label={`Upvote ${project.name}`}>♡ Upvote</button><strong class="count" aria-live="polite">–</strong><span>votes</span></div>
+  <span class="status" role="status" aria-live="polite">Loading</span>
+  <div class="turnstile-container"></div>
+</div>
+ <script>
+  document.querySelectorAll<HTMLElement>('[data-vote-project]').forEach(voting => {
+   const id=voting.dataset.voteProject;
+   const button=voting.querySelector<HTMLButtonElement>('button')!;
+   const count=voting.querySelector<HTMLElement>('.count')!;
+   const status=voting.querySelector<HTMLElement>('.status')!;
+   const widget=voting.querySelector<HTMLElement>('.turnstile-container')!;
+   const challenge = () => (window as any).turnstile;
+   let widgetId: string | undefined;
+   const render = () => {
+     if(widgetId || !voting.closest('details')?.open || !challenge()) return;
+     widgetId = challenge().render(widget, {sitekey:voting.dataset.turnstileSitekey, size:'flexible', theme:'dark'});
+   };
+   voting.closest('details')?.addEventListener('toggle',render);
+   window.addEventListener('load',render);
+   render();
+   let voted=false;
+   const say=(text:string)=>status.textContent=text;
+   async function reload(){
+     try{const r=await fetch(`/api/votes/${id}`,{credentials:'same-origin'});if(!r.ok)throw Error('unavailable');
+       const j=await r.json();count.textContent=String(j.count);voted=Boolean(j.voted);button.textContent=voted?'♥ Remove vote':'♡ Upvote';button.disabled=!widget;say(widget?'':'Voting is not configured');
+     }catch{count.textContent='–';button.disabled=true;say('Votes unavailable');}
+   }
+   button.addEventListener('click',async()=>{
+     // Widget tokens are single-use; request a new one after each vote operation.
+     const input=widget?.querySelector<HTMLInputElement>('[name="cf-turnstile-response"]');
+     const token=input?.value;
+     if(!token){say('Complete the verification to vote');return;}
+     button.disabled=true; say('Saving…');
+     try{const r=await fetch(`/api/votes/${id}`,{method:voted?'DELETE':'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',body:JSON.stringify({token})});
+       if(!r.ok){const j=await r.json();throw new Error(j.error||'Voting failed');}
+       await reload();
+     }catch(e){say(e instanceof Error?e.message:'Voting failed');}
+     finally{if(widgetId) challenge()?.reset(widgetId);button.disabled=count.textContent==='–';}
+   });
+   reload();
+  });
+ </script>

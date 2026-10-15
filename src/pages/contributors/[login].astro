@@ -1,7 +1,5 @@
 ---
-import Base from '../../layouts/Base.astro';
 import {contributors} from '../../lib/data';
-export function getStaticPaths(){return contributors.map(person=>({params:{login:person.login},props:{person}}));}
-const {person}=Astro.props;
+export function getStaticPaths(){return contributors.map(person=>({params:{login:person.login}}));}
+return Astro.redirect('/#community',301);
 ---
-<Base title={`@${person.login}`} description={`Verified open-source contributions by @${person.login} to AppKade projects.`}><div class="page-heading"><a href="/contributors/">← All contributors</a><div class="contributor" style="margin-top:22px">{person.avatarUrl&&<img class="avatar" src={person.avatarUrl} alt=""/>}<h1 style="margin:0">@{person.login}</h1></div><p class="lede">{person.points} points from {person.prs.length} verified merged pull requests.</p><a class="button ghost" href={`https://github.com/${person.login}`}>GitHub profile ↗</a></div><section class="section"><div class="taglist">{person.badges.map(b=><span class="pill">{b}</span>)}</div><h2 style="margin-top:28px">Contribution history</h2><div class="stack">{person.prs.map(p=><article class="card"><p class="small muted">{p.repo} · {p.mergedAt.slice(0,10)} · {p.category}</p><h3><a href={p.url}>{p.title} ↗</a></h3><strong>+{p.points} points</strong></article>)}</div></section><p class="muted small">Want to opt out? Open a privacy request in <a href="https://github.com/AppKade/open/issues">GitHub Issues</a>. We identify contributors by stable GitHub ID.</p></Base>

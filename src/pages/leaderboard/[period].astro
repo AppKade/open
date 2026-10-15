@@ -1,6 +1,4 @@
 ---
-import Leaderboard from '../../components/Leaderboard.astro';
-export function getStaticPaths(){return [{params:{period:'month'}},{params:{period:'newcomers'}}];}
-const {period}=Astro.params;
+export function getStaticPaths(){return ['month','newcomers'].map(period=>({params:{period}}));}
+return Astro.redirect('/#community',301);
 ---
-<Leaderboard period={period as 'month'|'newcomers'} />
