@@ -1,5 +1,5 @@
 /* Forest-green cosmos: replace accidental cyan, navy and purple lighting. */
-.open-site::before{opacity:.43;}
+.open-site::before{background:url('/brand-stars.svg') center top / 1600px auto repeat-y;opacity:.62;}
 .open-site::after{background:
   radial-gradient(ellipse 29% 33% at 52% 6%,rgba(1,119,55,.22),transparent 82%),
   radial-gradient(ellipse 32% 39% at 85% 36%,rgba(10,77,44,.21),transparent 85%),
