@@ -2,116 +2,70 @@
 import Base from '../layouts/Base.astro';
 import { projects, contributors, activity } from '../lib/data';
 
-const featured = projects.filter(project => project.featured);
-const top = [...contributors].sort((a,b) => b.points - a.points).slice(0,3);
-const verifiedPRs = contributors.reduce((sum, contributor) => sum + contributor.prs.length, 0);
+const featured = projects.find(project => project.featured) ?? projects[0];
+const otherProjects = projects.filter(project => project.repoId !== featured?.repoId).slice(0, 3);
+const leaders = [...contributors].sort((a, b) => b.points - a.points).slice(0, 3);
+const verifiedPRs = contributors.reduce((total, contributor) => total + contributor.prs.length, 0);
 ---
-<Base title="Build together. Grow together." description="Discover AppKade open-source projects, contribute real code and get recognized for verifiable GitHub work.">
-  <section class="hero-panel" aria-labelledby="hero-title">
-    <div class="hero-ambient" aria-hidden="true"></div>
-    <div class="hero-copy">
-      <span class="overline"><span class="status-dot" aria-hidden="true"></span> OPEN SOURCE, OPEN POSSIBILITIES</span>
-      <h1 id="hero-title">Build together.<br /><span class="gradient-text">Grow together.</span></h1>
-      <p class="lede">Good ideas deserve to be built in the open. Explore useful projects, ship meaningful contributions, and get credit for the work you do.</p>
-      <div class="button-row">
-        <a class="button" href="/projects/">Explore projects <span aria-hidden="true">↗</span></a>
-        <a class="button ghost" href="/contribute/">Start contributing <span aria-hidden="true">→</span></a>
+<Base title="Build together. Grow together." description="Explore real AppKade open-source projects, contribute code, and earn transparent recognition backed by merged GitHub pull requests.">
+  <div class="cosmos-home">
+    <section class="cosmic-hero" aria-labelledby="cosmic-heading">
+      <div class="cosmic-hero-glow" aria-hidden="true"></div>
+      <div class="hero-overline"><span class="overline-mark" aria-hidden="true">✦</span> A UNIVERSE BUILT IN THE OPEN <span class="overline-mark" aria-hidden="true">✦</span></div>
+      <h1 id="cosmic-heading">Build together.<br /><span class="cosmic-gradient">Grow together.</span></h1>
+      <p class="cosmic-lede">Great software starts with people who share what they know. Discover open-source projects, ship meaningful code, and get recognized for every contribution.</p>
+      <div class="cosmic-actions"><a class="cosmic-primary" href="/projects/">Explore open projects <span aria-hidden="true">↗</span></a><a class="cosmic-secondary" href="/contribute/">Start contributing <span aria-hidden="true">→</span></a></div>
+      <div class="hero-trust"><span><i aria-hidden="true">✓</i> Open to everyone</span><span><i aria-hidden="true">✓</i> Built on GitHub</span><span><i aria-hidden="true">✓</i> Real contributions</span></div>
+      <div class="cosmic-universe" aria-hidden="true">
+        <div class="universe-orbit orbit-wide"></div><div class="universe-orbit orbit-close"></div><div class="universe-orbit orbit-diagonal"></div>
+        <div class="universe-sun"><div class="sun-inner"><span class="sun-emblem">{`</>`}</span></div></div>
+        <div class="satellite satellite-code"><span class="satellite-icon">⌘</span><span class="satellite-details"><small>REPOSITORIES</small><strong>Explore real projects</strong></span><span class="satellite-arrow">↗</span></div>
+        <div class="satellite satellite-pr"><span class="satellite-check">✓</span><span class="satellite-details"><small>MERGED PULL REQUEST</small><strong>Impact, verified</strong></span></div>
+        <div class="satellite satellite-reward"><span class="satellite-reward-icon">✧</span><span class="satellite-details"><small>CONTRIBUTOR RECOGNITION</small><strong>Credit where it's due</strong></span></div>
+        <div class="universe-spark spark-1"></div><div class="universe-spark spark-2"></div><div class="universe-spark spark-3"></div><div class="universe-spark spark-4"></div>
       </div>
-      <div class="hero-proof">
-        <span class="proof-icon" aria-hidden="true">✓</span>
-        <span>Real repositories</span><i aria-hidden="true"></i><span>Verified contributions</span><i aria-hidden="true"></i><span>Open to everyone</span>
-      </div>
-    </div>
-    <figure class="orbit-scene" aria-label="Abstract illustration of open-source projects and contributions connected in an orbit">
-      <div class="orbit-halo"></div><div class="orbit-ring orbit-ring-outer"></div><div class="orbit-ring orbit-ring-inner"></div>
-      <div class="orbit-spine" aria-hidden="true"></div>
-      <div class="orbit-core" aria-hidden="true"><span class="orbit-mark">{'</>'}</span><span class="core-caption">BUILD IN THE OPEN</span></div>
-      <div class="orbit-node node-project"><span class="node-symbol">{'{ }'}</span><span><strong>PROJECTS</strong><small>Build something useful</small></span></div>
-      <div class="orbit-node node-pr"><span class="node-symbol">⑂</span><span><strong>PULL REQUESTS</strong><small>Share your work</small></span></div>
-      <div class="orbit-node node-badge"><span class="node-symbol">✦</span><span><strong>RECOGNITION</strong><small>Credit where it's due</small></span></div>
-      <span class="orbit-spark spark-a"></span><span class="orbit-spark spark-b"></span><span class="orbit-spark spark-c"></span>
-      <figcaption class="visually-hidden">Decorative conceptual artwork. This is not a live project dashboard.</figcaption>
-    </figure>
-    <div class="hero-bottom-line" aria-hidden="true"></div>
-  </section>
+      <div class="cosmic-microcaption" aria-hidden="true"><span>DISCOVER</span><span class="micro-line"></span><span>CONTRIBUTE</span><span class="micro-line"></span><span>GROW</span></div>
+    </section>
 
-  <div class="manifesto-strip" aria-label="Our principles">
-    <span><i class="manifesto-point"></i> Made for builders</span>
-    <span><i class="manifesto-point"></i> Backed by real code</span>
-    <span><i class="manifesto-point"></i> Community first</span>
-    <a href="https://github.com/AppKade" target="_blank" rel="noopener noreferrer">Explore the GitHub organization <span aria-hidden="true">↗</span></a>
+    <div class="cosmic-manifesto" aria-label="Our approach"><span><i aria-hidden="true">✳</i> No gatekeeping</span><span><i aria-hidden="true">◇</i> Real source code</span><span><i aria-hidden="true">↗</i> Verifiable impact</span><a href="https://github.com/AppKade" target="_blank" rel="noopener noreferrer">Visit our GitHub <span aria-hidden="true">↗</span></a></div>
+
+    <section class="cosmic-section discovery-section" aria-labelledby="discover-heading">
+      <div class="cosmic-section-head"><div><span class="cosmic-kicker">01 <i></i> DISCOVER</span><h2 id="discover-heading">Open projects.<br /><span>Infinite possibilities.</span></h2><p>Not just ideas on a landing page. Actual source code you can explore, use, and improve.</p></div><a class="cosmic-more" href="/projects/">Browse all projects <span aria-hidden="true">↗</span></a></div>
+      {featured ? (
+        <div class="feature-spotlight">
+          <div class="feature-copy"><span class="feature-index"><i aria-hidden="true"></i> FEATURED OPEN SOURCE PROJECT</span><div class="feature-glyph" aria-hidden="true"><span>{`</>`}</span></div><p class="feature-category">{featured.category} <span>/</span> {featured.language}</p><h3>{featured.name}</h3><p class="feature-description">{featured.description}</p><div class="feature-tags">{featured.tags.slice(0, 4).map(tag => <span>{tag}</span>)}</div><div class="feature-links"><a href={`/projects/${featured.slug}/`}>Explore project <span aria-hidden="true">↗</span></a><a href={`https://github.com/${featured.repo}`} target="_blank" rel="noopener noreferrer">View source on GitHub ↗</a></div></div>
+          <div class="feature-art" aria-hidden="true"><div class="feature-art-ring ring-a"></div><div class="feature-art-ring ring-b"></div><div class="feature-orb"><span>{`{ }`}</span></div><span class="feature-coordinate top">OPEN / SOURCE</span><span class="feature-coordinate bottom">{featured.repo}</span><span class="feature-ray ray-a"></span><span class="feature-ray ray-b"></span></div>
+        </div>
+      ) : (
+        <div class="cosmic-empty"><span aria-hidden="true">✧</span><h3>Our first projects are coming soon.</h3><p>Only repositories with working code and clear contribution instructions will be published.</p><a href="https://github.com/AppKade">Explore our GitHub ↗</a></div>
+      )}
+      {otherProjects.length > 0 && <div class="cosmic-project-list">{otherProjects.map(project => <a class="cosmic-project-row" href={`/projects/${project.slug}/`}><span class="row-category">{project.category}</span><strong>{project.name}</strong><span class="row-description">{project.description}</span><span aria-hidden="true">↗</span></a>)}</div>}
+    </section>
+
+    <section class="cosmic-section contribution-section" aria-labelledby="journey-heading">
+      <div class="cosmic-section-head"><div><span class="cosmic-kicker">02 <i></i> CONTRIBUTE</span><h2 id="journey-heading">Your next commit<br /><span>could change everything.</span></h2><p>One small contribution is all it takes to start. No applications, approval queues, or separate accounts.</p></div><a class="cosmic-more" href="/contribute/">How to contribute <span aria-hidden="true">↗</span></a></div>
+      <div class="cosmic-journey">
+        <article class="journey-step"><div class="journey-orbit"><span>⌕</span></div><span class="journey-index">01 / FIND</span><h3>Pick a project</h3><p>Choose useful software, find an issue, and see how you can help.</p></article>
+        <article class="journey-step"><div class="journey-orbit"><span>⑂</span></div><span class="journey-index">02 / BUILD</span><h3>Open a pull request</h3><p>Fix a bug, improve docs, or build a feature with the maintainers.</p></article>
+        <article class="journey-step"><div class="journey-orbit"><span>✧</span></div><span class="journey-index">03 / GROW</span><h3>Earn real recognition</h3><p>Verified merged contributions become part of your public history.</p></article>
+      </div>
+    </section>
+
+    <section class="cosmic-section recognition-section" aria-labelledby="recognition-heading">
+      <div class="recognition-aurora" aria-hidden="true"></div>
+      <div class="recognition-story"><span class="cosmic-kicker">03 <i></i> RECOGNITION</span><h2 id="recognition-heading">Real work.<br /><span class="cosmic-gradient">Lasting impact.</span></h2><p>Every point on the leaderboard links back to a real merged pull request. No fake contributors, no popularity contests—just work that matters.</p><a href="/leaderboard/" class="cosmic-secondary">Explore leaderboard <span aria-hidden="true">↗</span></a></div>
+      <div class="recognition-display">
+        <div class="achievement-halo"><span>✦</span></div>
+        {leaders.length > 0 ? <div class="recognition-list"><span class="recognition-list-title">COMMUNITY CONTRIBUTORS</span>{leaders.map((person, i) => <a href={`/contributors/${person.login}/`} class="recognition-person"><span>{String(i+1).padStart(2,'0')}</span>{person.avatarUrl && <img src={person.avatarUrl} alt="" loading="lazy" />}<strong>@{person.login}</strong><small>{person.points} pts</small></a>)}</div> : <div class="recognition-waiting"><span class="recognition-list-title">THE LEADERBOARD AWAITS</span><h3>Be among the first.</h3><p>Recognition begins with the first eligible merged PR.</p><a href="/contribute/">Make your contribution ↗</a></div>}
+        <div class="recognition-evidence">{verifiedPRs} verified merged PR{verifiedPRs === 1 ? '' : 's'} <span>·</span> GitHub-backed</div>
+      </div>
+    </section>
+
+    <section class="cosmic-section activity-section" aria-labelledby="latest-heading">
+      <div class="cosmic-section-head"><div><span class="cosmic-kicker">04 <i></i> COMMUNITY</span><h2 id="latest-heading">Built in public.<br /><span>Growing together.</span></h2></div><a class="cosmic-more" href="/contributors/">Meet contributors <span aria-hidden="true">↗</span></a></div>
+      {activity.items.length > 0 ? <div class="cosmic-activity">{activity.items.slice(0,4).map(item => <a href={item.url} class="cosmic-activity-row"><span class="activity-check" aria-hidden="true">✓</span><span><strong>{item.title}</strong><small>@{item.login} · {item.repo} · {item.mergedAt.slice(0,10)}</small></span><span aria-hidden="true">↗</span></a>)}</div> : <div class="cosmic-activity-empty"><span class="activity-beacon" aria-hidden="true">✳</span><span><strong>Every community has a first commit.</strong><small>Verified activity will appear as contributors merge their first PRs.</small></span><a href="/contribute/">Be part of it ↗</a></div>}
+    </section>
+
+    <section class="cosmic-finale" aria-labelledby="finale-heading"><div class="finale-light" aria-hidden="true"></div><span class="cosmic-kicker">THE UNIVERSE IS OPEN</span><h2 id="finale-heading">Your next great idea<br /><span class="cosmic-gradient">starts with a commit.</span></h2><p>Find your place in the open-source universe. Start small. Build something real.</p><a href="/contribute/" class="cosmic-primary">Start building together <span aria-hidden="true">↗</span></a></section>
   </div>
-
-  <section class="section section-projects" aria-labelledby="projects-title">
-    <div class="section-head">
-      <div><p class="eyebrow">01 / DISCOVER</p><h2 id="projects-title">Open projects. <span class="quiet-heading">Real opportunities.</span></h2><p class="section-intro">Find something worth building, understand how it works, and jump into the code.</p></div>
-      <a class="text-link" href="/projects/">All projects <span aria-hidden="true">↗</span></a>
-    </div>
-    <div class="grid project-grid">
-      {featured.length ? featured.map((project, i) =>
-        <article class="card project-card">
-          <div class="project-card-top"><span class="project-emblem" aria-hidden="true">{i % 2 === 0 ? '</>' : '⌘'}</span><span class="status-pill"><i class="mini-dot"></i>{project.status}</span></div>
-          <p class="tagline">{project.category} <span class="tagline-separator">/</span> {project.language}</p>
-          <h3><a href={`/projects/${project.slug}/`}>{project.name}</a></h3>
-          <p class="project-description">{project.description}</p>
-          <div class="taglist">{project.tags.slice(0,3).map(tag => <span class="pill">{tag}</span>)}</div>
-          <div class="card-foot"><a href={`/projects/${project.slug}/`}>Explore project <span aria-hidden="true">↗</span></a><span class="repo-label" title={project.repo}>GitHub repository</span></div>
-        </article>
-      ) :
-        <div class="empty"><div class="empty-symbol" aria-hidden="true">⌘</div><h3>First projects are on their way</h3><p>We only publish projects with real source code and clear instructions.</p><a href="https://github.com/AppKade">Explore our GitHub →</a></div>
-      }
-      <a class="card discover-card" href="/projects/">
-        <div class="discover-orbit" aria-hidden="true"><span>+</span></div>
-        <span class="tagline">DISCOVER MORE</span><h3>There's more to build.</h3><p>Explore every project, find an issue, and make your mark.</p><span class="discover-link">See all projects <span aria-hidden="true">↗</span></span>
-      </a>
-    </div>
-  </section>
-
-  <section class="section process-section" aria-labelledby="process-title">
-    <div class="section-head"><div><p class="eyebrow">02 / CONTRIBUTE</p><h2 id="process-title">Your next contribution <span class="quiet-heading">starts here.</span></h2><p class="section-intro">No forms. No gatekeeping. Just useful work through GitHub.</p></div></div>
-    <div class="grid steps">
-      <article class="card process-card"><div class="step-top"><span class="step-number">01</span><span class="step-icon" aria-hidden="true">⌕</span></div><h3>Find your project</h3><p>Pick an open-source project that interests you and explore its issues.</p><a href="/projects/">Browse projects ↗</a></article>
-      <article class="card process-card"><div class="step-top"><span class="step-number">02</span><span class="step-icon" aria-hidden="true">⑂</span></div><h3>Build something useful</h3><p>Improve the docs, fix a bug, or ship a feature with a focused pull request.</p><a href="/contribute/">How to contribute ↗</a></article>
-      <article class="card process-card"><div class="step-top"><span class="step-number">03</span><span class="step-icon" aria-hidden="true">✧</span></div><h3>Get recognized</h3><p>Your qualifying merged PR becomes part of your verifiable contribution history.</p><a href="/docs/contributing/">Our scoring policy ↗</a></article>
-    </div>
-  </section>
-
-  <section class="section recognition-section" aria-labelledby="recognition-title">
-    <div class="recognition-head"><div><p class="eyebrow">03 / RECOGNIZE</p><h2 id="recognition-title">Every contribution <span class="gradient-text">leaves a mark.</span></h2><p class="section-intro">Real merged pull requests. Transparent recognition. A growing community of builders.</p></div><a class="text-link" href="/leaderboard/">View leaderboard ↗</a></div>
-    <div class="recognition-layout">
-      <div class="recognition-spotlight">
-        <span class="spotlight-eyebrow">CONTRIBUTOR RECOGNITION</span>
-        <div class="spotlight-symbol" aria-hidden="true"><span>✦</span></div>
-        <h3>Recognition for real work.</h3>
-        <p>Every eligible contribution links back to the merged GitHub pull request that earned it. No popularity contests or invented stats.</p>
-        <div class="spotlight-meta"><span>{verifiedPRs} verified PR{verifiedPRs === 1 ? '' : 's'} so far</span><span>GitHub-backed ↗</span></div>
-      </div>
-      <div class="leader-preview">
-        <div class="leader-preview-title"><span>COMMUNITY BUILDERS</span><span>↗</span></div>
-        {top.length ? top.map((person, index) =>
-          <a class="leader-mini-row" href={`/contributors/${person.login}/`}>
-            <span class="leader-mini-rank">{String(index + 1).padStart(2,'0')}</span>
-            {person.avatarUrl && <img class="avatar" src={person.avatarUrl} alt="" loading="lazy" />}
-            <span class="leader-mini-name">@{person.login}</span>
-            <strong>{person.points} pts</strong>
-          </a>
-        ) : <div class="leader-empty"><div class="leader-empty-orbit" aria-hidden="true">✧</div><strong>Your name could be here.</strong><p>The leaderboard fills with verified merged contributions, not sample accounts.</p><a href="/contribute/">Make the first move ↗</a></div>}
-        <a class="leader-preview-bottom" href="/leaderboard/">All-time · Monthly · Newcomers <span aria-hidden="true">↗</span></a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section activity-section" aria-labelledby="activity-title">
-    <div class="section-head"><div><p class="eyebrow">04 / COMMUNITY</p><h2 id="activity-title">Happening <span class="quiet-heading">in the open.</span></h2></div><a href="/contributors/" class="text-link">Meet contributors ↗</a></div>
-    {activity.items.length ?
-      <div class="card activity-panel"><ul class="activity">{activity.items.slice(0,5).map(entry => <li><span class="activity-indicator" aria-hidden="true">✓</span><span><a href={entry.url}>{entry.title}</a><small>by @{entry.login} · {entry.repo} · {entry.mergedAt.slice(0,10)}</small></span><span aria-hidden="true">↗</span></li>)}</ul></div> :
-      <div class="empty activity-empty"><div class="empty-symbol" aria-hidden="true">⑂</div><div><h3>Good things start with a first contribution.</h3><p>Verified merged PR activity will appear here as the community grows.</p></div><a class="text-link" href="/contribute/">Get started ↗</a></div>
-    }
-  </section>
-
-  <section class="final-cta" aria-labelledby="cta-title">
-    <div class="cta-glow" aria-hidden="true"></div>
-    <div><p class="eyebrow">THE NEXT COMMIT IS YOURS</p><h2 id="cta-title">Let's build something <span class="gradient-text">that matters.</span></h2><p>Whether it's your first PR or your fiftieth, there's room to contribute.</p></div>
-    <a class="button" href="/contribute/">Start contributing <span aria-hidden="true">↗</span></a>
-  </section>
 </Base>
