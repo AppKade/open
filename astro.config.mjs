@@ -9,7 +9,7 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'AppKade Open',
-      customCss: ['./src/styles/site.css'],
+      customCss: ['./src/styles/site.css','./src/styles/brand.css'],
       plugins: [lucode({navLinks: [
         { label: 'Projects', link: '/projects/' },
         { label: 'Contributors', link: '/contributors/' },
