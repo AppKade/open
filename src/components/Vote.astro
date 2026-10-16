@@ -18,7 +18,7 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || '0x4AAAAAAFW2WZiJXaN
    let widgetId: string | undefined;
    const render = () => {
      if(widgetId || !voting.closest('details')?.open || !challenge()) return;
-     widgetId = challenge().render(widget, {sitekey:voting.dataset.turnstileSitekey, size:'flexible', theme:'dark'});
+     widgetId = challenge().render(widget, {sitekey:voting.dataset.turnstileSitekey, size:'compact', theme:'dark'});
    };
    voting.closest('details')?.addEventListener('toggle',render);
    window.addEventListener('load',render);

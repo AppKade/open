@@ -8,7 +8,7 @@
 
 ## Stack
 
-A single-page Astro site, self-hosted Space Grotesk and Source Sans 3 fonts, Cloudflare Pages, Pages Functions, D1, and Cloudflare Turnstile. GitHub is the source of truth for projects and contribution history. D1 stores anonymous project votes only.
+A single-page Astro site, self-hosted Inter fonts, Cloudflare Pages, Pages Functions, D1, and Cloudflare Turnstile. GitHub is the source of truth for projects and contribution history. D1 stores anonymous project votes only.
 
 ## Development
 
