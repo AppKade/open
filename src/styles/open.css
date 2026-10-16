@@ -708,7 +708,6 @@ pre {
 }
 .turnstile-container {
   max-width: 100%;
-  overflow: hidden;
 }
 #contribute {
   position: relative;
@@ -956,7 +955,8 @@ pre {
 }
 @media (max-width: 1000px) {
   .projects {
-    gap: 14px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
   }
   .project-main {
     padding: 20px 18px 0;
@@ -965,7 +965,7 @@ pre {
     padding-inline: 18px;
   }
   .project-description {
-    min-height: 160px;
+    min-height: 114px;
   }
   .project .actions {
     align-items: start;
