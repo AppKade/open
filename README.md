@@ -43,6 +43,7 @@ AppKade Open is the open side of [AppKade](https://appkade.lk): one place to dis
 | [**LankaQR CLI**](https://github.com/AppKade/lanka-qr-cli) | Inspect QR payloads, parse TLV fields and verify CRC checksums offline. | 🧪 Experimental |
 | [**Legacy Bridge**](https://github.com/AppKade/legacy-bridge) | Inspect SOAP/WSDL operations and run preliminary XML and import checks. | 🧪 Experimental |
 | [**AppKade Open**](https://github.com/AppKade/open) | This website: project discovery and contributor recognition. | 🧪 Experimental |
+| [**Singularity**](https://github.com/AppKade/singularity) | An animated WebGL black hole for your website, with a live [playground](https://appkade.github.io/singularity/). | 🧪 Experimental |
 
 Every merged PR to any of these repositories counts toward your recognition on [open.appkade.lk](https://open.appkade.lk/#community).
 

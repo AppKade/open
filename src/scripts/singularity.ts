@@ -1,6 +1,7 @@
 // Green black hole behind the hero, adapted from XorDev's "Singularity"
-// (https://www.shadertoy.com/view/3csSWB). Falls back to the CSS glow when
-// WebGL is unavailable, and freezes on one frame when motion is paused.
+// (https://www.shadertoy.com/view/3csSWB), licensed CC BY-NC-SA 3.0
+// (https://creativecommons.org/licenses/by-nc-sa/3.0/). Falls back to the CSS
+// glow when WebGL is unavailable, and freezes on one frame when motion is paused.
 const canvas = document.querySelector<HTMLCanvasElement>("#singularity");
 const gl = canvas?.getContext("webgl", {
   alpha: true,
