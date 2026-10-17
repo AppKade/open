@@ -31,9 +31,9 @@ Open-source tools for curious minds and everyday builders, and a home that recog
 
 AppKade Open is the open side of [AppKade](https://appkade.lk): one place to discover our open-source projects, learn how to run them, and get credit for improving them.
 
-- 🧭 **Discover projects.** A compact directory of public AppKade tools, each with setup steps you can copy and run.
+- 🧭 **Discover projects.** A community-ranked board of public AppKade tools, each with GitHub activity and setup steps you can copy and run.
 - 🏅 **Get recognised.** Merged pull requests earn points and badges, verified straight from GitHub. No sign-up, no AppKade account.
-- 🗳️ **Show interest.** Upvote the projects you care about with privacy-friendly, bot-protected anonymous votes.
+- 🗳️ **Rank what matters.** Upvote the projects you care about with privacy-friendly, bot-protected anonymous votes; the board reorders live.
 - 🌌 **Enjoy the view.** A hand-tuned WebGL black hole, a drifting starfield, and full respect for reduced-motion settings.
 
 ## 🧰 Projects you can contribute to
@@ -115,10 +115,10 @@ GitHub is the source of truth for projects and contribution history; D1 stores a
 | :-- | :-- |
 | `src/pages/index.astro` | The whole public page. Other pages only redirect legacy URLs. |
 | `src/styles/open.css` | All styles. |
-| `src/scripts/` | Client scripts: starfield and motion toggle (`motion.ts`), WebGL hero black hole (`singularity.ts`). |
+| `src/scripts/` | Client scripts: starfield and motion toggle (`motion.ts`), WebGL hero black hole (`singularity.ts`), project ranking (`ranking.ts`). |
 | `src/components/` | `Brand` and the per-project `Vote` widget. |
 | `src/lib/` | Data loading and the contributor scoring rules. |
-| `data/` | Project registry and generated contributor snapshots. |
+| `data/` | Project registry and generated contributor and project-activity snapshots. |
 | `scripts/sync-github.mjs` | Builds contributor data from merged GitHub PRs. |
 | `functions/api/votes/` | Cloudflare Pages Function for votes. |
 | `migrations/` | D1 schema and the voting allowlist. |
@@ -134,7 +134,7 @@ GitHub is the source of truth for projects and contribution history; D1 stores a
 
 Edit `data/projects.json` with verified public repositories owned by the AppKade organization. Include the **numeric** GitHub repository ID. New projects require a working README and actual installation instructions; do not invent release or contributor metrics. To make a project votable, also add a numbered migration in `migrations/` that inserts its `repo_id` and `slug` into `published_projects`.
 
-`pnpm sync` generates `data/contributors.json` and `data/activity.json` from GitHub's merged PRs. The deploy workflow syncs before every build without pushing generated files back to git, so do not commit sync output.
+`pnpm sync` generates `data/contributors.json`, `data/activity.json` and `data/project-stats.json` from GitHub. To give a project a custom icon, add a square PNG at `public/projects/<slug>.png`; otherwise its initials are shown. Adding `public/og-image.png` (1200×630) turns on link previews. The deploy workflow syncs before every build without pushing generated files back to git, so do not commit sync output.
 
 ### D1 voting
 

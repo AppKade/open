@@ -38,7 +38,7 @@ For visual changes, include before and after screenshots (desktop and mobile) in
 - Link a real issue and describe how reviewers can reproduce or test the change.
 - Use `type:feature`, `type:fix`, `type:docs`, or `type:test` to categorize merged work, if applicable. Maintainers manage labels.
 - Do not game the scoring by splitting trivial or empty work into multiple PRs.
-- Do not commit tokens, private emails, personal data, generated build artifacts, or the output of `pnpm sync` (`data/contributors.json`, `data/activity.json`).
+- Do not commit tokens, private emails, personal data, generated build artifacts, or the output of `pnpm sync` (`data/contributors.json`, `data/activity.json`, `data/project-stats.json`).
 - Vulnerabilities should follow [SECURITY.md](SECURITY.md), not public issues.
 
 ## Adding a project

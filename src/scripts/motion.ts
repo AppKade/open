@@ -111,7 +111,7 @@ document.addEventListener(
     pointer.targetX = (event.clientX / width - 0.5) * 30;
     pointer.targetY = (event.clientY / height - 0.5) * 30;
     const card = (event.target as Element).closest<HTMLElement>(
-      ".project, .community-panel, .steps article",
+      ".project-card, .community-panel, .steps article",
     );
     if (!card) return;
     const bounds = card.getBoundingClientRect();
@@ -122,7 +122,7 @@ document.addEventListener(
 );
 
 const revealTargets = document.querySelectorAll<HTMLElement>(
-  ".hero-badge, .hero h1, .hero .intro, .hero .actions, .ecosystem, .section-head, .project, .steps article, .community-panel, .closing",
+  ".hero-badge, .hero h1, .hero .intro, .hero .actions, .section-head, .project-card, .steps article, .community-panel, .closing",
 );
 const observer = new IntersectionObserver(
   (entries) => {
