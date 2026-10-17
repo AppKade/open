@@ -37,7 +37,7 @@ CI (`.github/workflows/ci.yml`) runs `pnpm test`, `pnpm check` and `pnpm build` 
 - **Scoring** (`src/lib/scoring.mjs`, typed by `scoring.d.mts`) is pure and shared by the sync script, the homepage and tests: PR label → points (`type:feature` 10, `type:fix` 8, `type:docs`/`type:test` 5, other 3), +5 for a contributor's first PR, dedupe by `repoId:number`, skip bots and IDs in `data/contributor-optouts.json`. Policy text lives in `docs/recognition.md` and the homepage; keep them in sync with `WEIGHTS`.
 - **Voting.** `functions/api/votes/[id].ts` handles `GET|POST|DELETE /api/votes/:repo_id` (only path routed to Functions, see `public/_routes.json`). Mutations require a Turnstile token (`TURNSTILE_SECRET`), a same-origin request and an HMAC-signed visitor cookie (`VOTE_COOKIE_SECRET`); D1 stores only a hashed voter ID. Votes are allowed only for repos in the `published_projects` table.
 - **Registering a project** takes two changes: an entry in `data/projects.json` and a new numbered migration in `migrations/` inserting its `repo_id`/`slug` into `published_projects`. Migrations are applied manually (`pnpm db:remote`), never from CI.
-- **Deploy.** `.github/workflows/deploy.yml` publishes `main` (on push, daily at 02:15 UTC, and manually) via Wrangler direct upload; there is no Cloudflare Git integration. `theme-preview.yml` deploys preview builds for a fixed list of branches.
+- **Deploy.** `.github/workflows/deploy.yml` publishes `main` (on push, daily at 02:15 UTC, and manually) via Wrangler direct upload; there is no Cloudflare Git integration.
 
 ## Boundaries
 
