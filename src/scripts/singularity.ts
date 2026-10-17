@@ -19,11 +19,11 @@ precision highp float;
 uniform vec2 resolution;
 uniform float time;
 uniform vec2 center;
-uniform float scale;
+uniform float unit;
 
 void main() {
   float i = 0.2;
-  vec2 p = (gl_FragCoord.xy - center * resolution) / (resolution.y * scale);
+  vec2 p = (gl_FragCoord.xy - center) / unit;
   vec2 d = vec2(-1.0, 1.0);
   vec2 b = p - i * d;
   // Tilt the disc and bend coordinates around the event horizon.
@@ -81,13 +81,14 @@ function setup() {
     resolution: gl.getUniformLocation(program, "resolution"),
     time: gl.getUniformLocation(program, "time"),
     center: gl.getUniformLocation(program, "center"),
-    scale: gl.getUniformLocation(program, "scale"),
+    unit: gl.getUniformLocation(program, "unit"),
   };
   const narrow = matchMedia("(max-width: 760px)");
   let frame = 0;
   let previous = 0;
   let elapsed = 0;
   let visible = true;
+  let ratio = 1;
 
   const paused = () => document.documentElement.dataset.motion === "off";
 
@@ -96,8 +97,12 @@ function setup() {
     gl!.uniform2f(uniforms.resolution, canvas!.width, canvas!.height);
     gl!.uniform1f(uniforms.time, elapsed);
     // Sit the hole low in the hero so the copy stays on calm background.
-    gl!.uniform2f(uniforms.center, 0.5, narrow.matches ? 0.18 : 0.2);
-    gl!.uniform1f(uniforms.scale, narrow.matches ? 0.26 : 0.32);
+    // Fixed pixel sizes keep the whole disc inside the hero's bottom padding
+    // (see .hero in open.css) however tall the copy above it wraps.
+    const radius = (narrow.matches ? 115 : 170) * ratio;
+    const lift = (narrow.matches ? 205 : 300) * ratio;
+    gl!.uniform2f(uniforms.center, canvas!.width / 2, lift);
+    gl!.uniform1f(uniforms.unit, radius / 0.7);
     gl!.drawArrays(gl!.TRIANGLES, 0, 3);
   }
   function tick(now: number) {
@@ -117,7 +122,7 @@ function setup() {
   }
   function resize() {
     // The shader is soft, so a reduced backing store keeps it cheap on phones.
-    const ratio = Math.min(devicePixelRatio || 1, 1.5) * 0.75;
+    ratio = Math.min(devicePixelRatio || 1, 1.5) * 0.75;
     canvas!.width = Math.round(canvas!.clientWidth * ratio);
     canvas!.height = Math.round(canvas!.clientHeight * ratio);
     draw();
