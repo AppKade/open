@@ -41,7 +41,7 @@ const ranked=projects.map((project,index)=>({project,index,stats:projectStats.pr
       <p class="project-description">{project.description}</p>
       {stats&&<ul class="project-stats" aria-label="GitHub activity"><li><strong>{compact.format(stats.stars)}</strong> stars</li><li><strong>{stats.contributors}</strong> contributor{stats.contributors===1?'':'s'}</li><li><strong>{stats.mergedPrs}</strong> merged PR{stats.mergedPrs===1?'':'s'}</li></ul>}
       <ul class="tags" aria-label="Technologies">{project.tags.map(tag=><li>{tag}</li>)}</ul>
-      <div class="project-actions"><a class="button secondary" href={`https://github.com/${project.repo}`}><GitHubIcon/>View repository <span aria-hidden="true">↗</span></a><a class="text-link" href={`https://github.com/${project.repo}/issues`}>Open issues ↗</a></div>
+      <div class="project-actions"><a class="button secondary" href={`https://github.com/${project.repo}`}><GitHubIcon/>View repository <span aria-hidden="true">↗</span></a>{project.homepage&&!project.homepage.startsWith(`https://github.com/${project.repo}`)&&<a class="text-link" href={project.homepage}>Live site ↗</a>}<a class="text-link" href={`https://github.com/${project.repo}/issues`}>Open issues ↗</a></div>
       <details class="setup"><summary>Run it locally <span aria-hidden="true">+</span></summary><pre><code>{project.installation}</code></pre><a href={`https://github.com/${project.repo}#readme`}>Full setup instructions ↗</a></details>
     </div>
   </details>

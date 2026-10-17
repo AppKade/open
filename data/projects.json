@@ -52,5 +52,23 @@
       "Open source",
       "Cloudflare"
     ]
+  },
+  {
+    "repoId": 1423559341,
+    "repo": "AppKade/singularity",
+    "slug": "singularity",
+    "name": "Singularity",
+    "description": "An animated WebGL black hole for your website. Tune it in the playground, then copy the code or a ready-made prompt for your AI coding agent.",
+    "category": "UI components",
+    "status": "experimental",
+    "featured": false,
+    "homepage": "https://appkade.github.io/singularity/",
+    "installation": "git clone https://github.com/AppKade/singularity.git\ncd singularity\nnpm test\nnpm start   # then open http://localhost:8080",
+    "language": "JavaScript",
+    "tags": [
+      "WebGL",
+      "Shader",
+      "Zero dependencies"
+    ]
   }
 ]
