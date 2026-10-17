@@ -22,7 +22,7 @@ Open-source tools for curious minds and everyday builders, and a home that recog
 <br />
 
 <a href="https://open.appkade.lk">
-  <img src="docs/assets/screenshot.jpg" alt="The AppKade Open homepage, with a green black hole behind the headline “Useful software. Built together.”" width="100%" />
+  <img src="docs/assets/homepage.jpg" alt="The AppKade Open homepage, with a green black hole behind the headline “Useful software. Built together.”" width="100%" />
 </a>
 
 </div>
