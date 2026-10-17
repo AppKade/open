@@ -981,7 +981,6 @@ html[data-motion="off"] *:after {
   border-radius: 50%;
   border: 1px dashed #5fc27e80;
   color: var(--mint);
-  font-size: 24px;
   margin-bottom: 20px;
 }
 .contributor-invite h3 {
@@ -1228,19 +1227,28 @@ html[data-motion="off"] *:after {
   text-align: center;
   color: var(--muted);
 }
+/* Invisible while Turnstile verifies silently; a small panel only when it
+   needs a click. */
 .turnstile-container {
   position: absolute;
   top: calc(100% + 24px);
   right: 0;
   z-index: 5;
-  padding: 8px;
-  border: 1px solid var(--line);
+}
+.turnstile-container[data-interactive] {
+  padding: 6px;
+  border: 1px solid #5fc27e40;
   border-radius: 12px;
   background: var(--surface);
-  box-shadow: 0 18px 40px #0008;
+  box-shadow: 0 18px 40px #000a;
 }
 .turnstile-container[hidden] {
   display: none;
+}
+/* Cards isolate their stacking, so lift the one showing the check above
+   the cards that follow it. */
+.project-card:has(.turnstile-container[data-interactive]) {
+  z-index: 10;
 }
 .ranking-note {
   margin: 22px 0 0;

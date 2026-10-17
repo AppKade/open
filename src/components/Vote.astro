@@ -17,8 +17,11 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || '0x4AAAAAAFW2WZiJXaN
    const widget=voting.querySelector<HTMLElement>('.turnstile-container')!;
    const challenge = () => (window as any).turnstile;
    let widgetId: string | undefined;
-   let voted=false, busy=false, pending=false;
-   const say=(text:string)=>status.textContent=text;
+   let voted=false, busy=false, pending=false, clear: ReturnType<typeof setTimeout> | undefined;
+   const say=(text:string,brief=false)=>{
+     clearTimeout(clear);status.textContent=text;
+     if(brief) clear=setTimeout(()=>status.textContent='',2500);
+   };
    const show=(value:number,mine:boolean)=>{
      count.textContent=String(value);voted=mine;
      button.setAttribute('aria-pressed',String(mine));
@@ -36,7 +39,7 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || '0x4AAAAAAFW2WZiJXaN
      try{const r=await fetch(`/api/votes/${id}`,{method:voted?'DELETE':'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',body:JSON.stringify({token})});
        const j=await r.json();
        if(!r.ok)throw new Error(j.error||'Voting failed');
-       show(j.count,Boolean(j.voted));say(j.voted?'Thanks!':'Removed');widget.hidden=true;
+       show(j.count,Boolean(j.voted));say(j.voted?'Thanks!':'Removed',true);widget.hidden=true;
      }catch(e){say(e instanceof Error?e.message:'Voting failed');}
      // Widget tokens are single-use; reset fetches a fresh one for the next vote.
      finally{busy=false;if(widgetId) challenge()?.reset(widgetId);button.disabled=false;}
@@ -46,9 +49,16 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || '0x4AAAAAAFW2WZiJXaN
      const token=widget.querySelector<HTMLInputElement>('[name="cf-turnstile-response"]')?.value;
      if(token){submit(token);return;}
      if(!challenge()){say('Verification is loading');return;}
-     pending=true;widget.hidden=false;say('Verify to vote');
-     // Only a click submits; tokens issued after a reset wait for the next click.
-     widgetId ??= challenge().render(widget,{sitekey:voting.dataset.turnstileSitekey,size:'compact',theme:'dark',callback:(value:string)=>{if(pending){pending=false;submit(value);}}});
+     pending=true;widget.hidden=false;say('Verifying…');
+     // The check stays invisible unless Cloudflare needs a click, and only a
+     // click submits: tokens issued after a reset wait for the next click.
+     widgetId ??= challenge().render(widget,{
+       sitekey:voting.dataset.turnstileSitekey,size:'compact',theme:'dark',appearance:'interaction-only',
+       callback:(value:string)=>{if(pending){pending=false;submit(value);}},
+       'before-interactive-callback':()=>{widget.dataset.interactive='';say('Confirm you are human');},
+       'after-interactive-callback':()=>{delete widget.dataset.interactive;},
+       'error-callback':()=>{pending=false;widget.hidden=true;say('Verification failed',true);},
+     });
    });
    reload();
   });
