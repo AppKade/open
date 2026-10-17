@@ -3,7 +3,7 @@ const { project } = Astro.props;
 const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || '0x4AAAAAAFW2WZiJXaN-0Adx';
 ---
 <div class="vote" data-vote-project={project.repoId} data-vote-name={project.name} data-turnstile-sitekey={siteKey}>
-  <button type="button" class="vote-button" disabled aria-pressed="false" aria-label={`Upvote ${project.name}`}><span class="vote-arrow" aria-hidden="true">▲</span><strong class="count">–</strong><small>upvotes</small></button>
+  <button type="button" class="vote-button" disabled aria-pressed="false" aria-label={`Upvote ${project.name}`}><span class="vote-arrow" aria-hidden="true">▲</span><strong class="count">–</strong></button>
   <span class="status" role="status" aria-live="polite"></span>
   <div class="turnstile-container" hidden></div>
 </div>
@@ -29,7 +29,7 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || '0x4AAAAAAFW2WZiJXaN
    async function reload(){
      try{const r=await fetch(`/api/votes/${id}`,{credentials:'same-origin'});if(!r.ok)throw Error('unavailable');
        const j=await r.json();show(j.count,Boolean(j.voted));button.disabled=false;say('');
-     }catch{count.textContent='–';button.disabled=true;say('Votes unavailable');}
+     }catch{count.textContent='–';button.disabled=true;button.title='Voting is unavailable right now';}
    }
    async function submit(token:string){
      busy=true;button.disabled=true;say('Saving…');
