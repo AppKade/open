@@ -136,7 +136,13 @@ nav {
   font-size: 14px;
   color: #b9c5c7;
 }
+.github-icon {
+  flex: none;
+}
 .github-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   font-size: 13px;
   border: 1px solid #ffffff25;
   padding: 5px 15px;
@@ -151,8 +157,7 @@ nav {
   position: relative;
   isolation: isolate;
   text-align: center;
-  padding: 185px 0 380px;
-  overflow: hidden;
+  padding: 185px 0 320px;
   background: radial-gradient(
     ellipse at 50% 110%,
     #c2ffd9 0%,
@@ -162,21 +167,31 @@ nav {
   );
 }
 .hero-singularity {
+  /* Shared with singularity.ts: disc radius and the hole's height above the
+     canvas bottom, in CSS pixels. The canvas runs past the hero so the
+     disc's tail fades out over the next section instead of being clipped. */
+  --radius: 170;
+  --lift: 600;
+  --overhang: 360px;
   position: absolute;
   z-index: -1;
-  inset: 0;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 100%;
+  height: calc(100% + var(--overhang));
+  pointer-events: none;
   opacity: 0;
   transition: opacity 1.2s ease;
-  /* Fade both edges so the hero melts into the page without a seam. */
-  mask-image: linear-gradient(
-    transparent 15%,
-    #0006 40%,
-    #000 62%,
-    #000 calc(100% - 50px),
-    transparent
-  );
+  /* Dim the top behind the copy and fade the disc out in every direction. */
+  mask-image:
+    linear-gradient(transparent 12%, #0006 32%, #000 50%),
+    radial-gradient(
+      calc(var(--radius) * 3.4px) calc(var(--radius) * 2.5px) at 50%
+        calc(100% - var(--lift) * 1px),
+      #000 40%,
+      transparent
+    );
+  mask-composite: intersect;
 }
 .hero-singularity[data-ready] {
   opacity: 1;
@@ -462,6 +477,8 @@ pre {
   gap: 24px;
 }
 .community-panel {
+  display: flex;
+  flex-direction: column;
   min-width: 0;
   padding: 28px;
   border: 1px solid var(--line);
@@ -482,6 +499,9 @@ pre {
 }
 .panel-heading > span,
 .panel-heading > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   font-size: 11px;
   color: var(--muted);
 }
@@ -543,9 +563,15 @@ pre {
 }
 .activity li {
   display: flex;
+  align-items: flex-start;
   gap: 14px;
   padding-block: 18px;
   border-bottom: 1px solid var(--line);
+}
+.activity li:last-child,
+.contributors > li:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
 }
 .activity a {
   font-size: 13px;
@@ -554,8 +580,8 @@ pre {
 }
 .merge-icon {
   color: var(--green);
-  font-size: 20px;
-  line-height: 1.2;
+  font-size: 16px;
+  line-height: 19.5px;
 }
 .activity small {
   margin-top: 8px;
@@ -689,7 +715,7 @@ pre {
     font-size: 12px;
   }
   .hero {
-    padding: 170px 0 270px;
+    padding: 170px 0 230px;
     background: radial-gradient(
       ellipse at 50% 110%,
       #b7f9cb,
@@ -697,6 +723,11 @@ pre {
       #16875b70 36%,
       transparent 76%
     );
+  }
+  .hero-singularity {
+    --radius: 115;
+    --lift: 400;
+    --overhang: 240px;
   }
   h1 {
     font-size: 40px;
@@ -934,7 +965,13 @@ html[data-motion="off"] *:after {
   padding: 2px 7px;
 }
 .contributor-invite {
-  padding-top: 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: 28px;
 }
 .invite-symbol {
   display: grid;
@@ -951,6 +988,7 @@ html[data-motion="off"] *:after {
   font-size: 20px;
 }
 .contributor-invite p {
+  max-width: 400px;
   color: var(--muted);
   font-size: 14px;
   margin: 16px 0 24px;
