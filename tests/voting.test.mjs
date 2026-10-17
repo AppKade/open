@@ -62,6 +62,8 @@ test("voting submits only after a click, scopes requests, and reports counts for
     document: { querySelectorAll: () => votes },
     window: { turnstile: api },
     CustomEvent: class { constructor(type, init) { this.type = type; this.detail = init.detail; } },
+    setTimeout: () => 0,
+    clearTimeout: () => {},
     fetch: async (url, opts) => {
       requests.push({ url, opts });
       return { ok: true, json: async () => (opts.method ? { count: 5, voted: true } : { count: 4, voted: false }) };
@@ -76,6 +78,7 @@ test("voting submits only after a click, scopes requests, and reports counts for
   votes[1].handlers.click();
   assert.equal(renders.length, 1);
   assert.equal(renders[0].widget, votes[1].widget);
+  assert.equal(renders[0].options.appearance, "interaction-only", "the check stays hidden unless a click is needed");
   assert.equal(votes[1].widget.hidden, false);
   assert.equal(requests.length, 2, "a click without a token must not submit");
 
