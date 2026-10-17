@@ -83,7 +83,6 @@ function setup() {
     center: gl.getUniformLocation(program, "center"),
     unit: gl.getUniformLocation(program, "unit"),
   };
-  const narrow = matchMedia("(max-width: 760px)");
   let frame = 0;
   let previous = 0;
   let elapsed = 0;
@@ -96,11 +95,11 @@ function setup() {
     gl!.viewport(0, 0, canvas!.width, canvas!.height);
     gl!.uniform2f(uniforms.resolution, canvas!.width, canvas!.height);
     gl!.uniform1f(uniforms.time, elapsed);
-    // Sit the hole low in the hero so the copy stays on calm background.
-    // Fixed pixel sizes keep the whole disc inside the hero's bottom padding
-    // (see .hero in open.css) however tall the copy above it wraps.
-    const radius = (narrow.matches ? 115 : 170) * ratio;
-    const lift = (narrow.matches ? 205 : 300) * ratio;
+    // Size and position come from .hero-singularity in open.css so the
+    // shader and its CSS fade mask always agree.
+    const style = getComputedStyle(canvas!);
+    const radius = parseFloat(style.getPropertyValue("--radius")) * ratio;
+    const lift = parseFloat(style.getPropertyValue("--lift")) * ratio;
     gl!.uniform2f(uniforms.center, canvas!.width / 2, lift);
     gl!.uniform1f(uniforms.unit, radius / 0.7);
     gl!.drawArrays(gl!.TRIANGLES, 0, 3);
