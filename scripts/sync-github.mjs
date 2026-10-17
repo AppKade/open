@@ -9,10 +9,12 @@ async function get(url){
   return await r.json();
 }
 const prs=[];
+const stats={};
 for(const project of projects){
   if(!/^AppKade\/[a-zA-Z0-9._-]+$/.test(project.repo)||!Number.isSafeInteger(project.repoId))throw new Error(`Invalid curated repository ${project.repo}`);
   const repo=await get(`https://api.github.com/repos/${project.repo}`);
   if(repo.id!==project.repoId || repo.private || repo.owner.login.toLowerCase()!=='appkade')throw new Error(`Repository not eligible: ${project.repo}`);
+  stats[repo.id]={stars:repo.stargazers_count,forks:repo.forks_count,contributors:0,mergedPrs:0,pushedAt:repo.pushed_at};
   // Keep paginating rather than silently truncating all-time rankings.
   for(let page=1;page<=100;page++){
     const batch=await get(`https://api.github.com/repos/${project.repo}/pulls?state=closed&sort=updated&direction=desc&per_page=100&page=${page}`);
@@ -25,9 +27,13 @@ for(const project of projects){
   }
 }
 const contributors=aggregateContributions(prs,optouts);
+// Per-project activity uses the same eligibility rules as contributor scoring.
+for(const c of contributors)for(const repoId of new Set(c.prs.map(pr=>pr.repoId)))stats[repoId].contributors++;
+for(const c of contributors)for(const pr of c.prs)stats[pr.repoId].mergedPrs++;
 const activity=prs.filter(p=>!p.isBot&&!optouts.includes(p.githubId))
   .sort((a,b)=>b.mergedAt.localeCompare(a.mergedAt))
   .slice(0,10).map(p=>({login:p.login,repo:p.repo,title:p.title,url:p.url,mergedAt:p.mergedAt}));
 await fs.writeFile('data/contributors.json',JSON.stringify(contributors,null,2)+'\n');
+await fs.writeFile('data/project-stats.json',JSON.stringify({generatedAt:new Date().toISOString(),projects:stats},null,2)+'\n');
 await fs.writeFile('data/activity.json',JSON.stringify({generatedAt:new Date().toISOString(),syncStatus:'ok',items:activity},null,2)+'\n');
 console.log(`Synced ${projects.length} projects, ${prs.length} merged PRs, ${contributors.length} contributors`);
