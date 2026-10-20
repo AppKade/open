@@ -12,7 +12,7 @@ Open-source tools for curious minds and everyday builders, and a home that recog
 
 [![Validate](https://github.com/AppKade/open/actions/workflows/ci.yml/badge.svg)](https://github.com/AppKade/open/actions/workflows/ci.yml)
 [![Publish](https://github.com/AppKade/open/actions/workflows/deploy.yml/badge.svg)](https://github.com/AppKade/open/actions/workflows/deploy.yml)
-[![License: MIT](https://img.shields.io/badge/license-MIT-5fc27e.svg)](#license)
+[![License: mixed](https://img.shields.io/badge/license-MIT%20%2B%20CC_BY--NC--SA-5fc27e.svg)](LICENSE)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-5fc27e.svg)](CONTRIBUTING.md)
 [![Built with Astro](https://img.shields.io/badge/built%20with-Astro-0c1418?logo=astro&logoColor=white)](https://astro.build)
 [![Cloudflare Pages](https://img.shields.io/badge/hosted%20on-Cloudflare%20Pages-0c1418?logo=cloudflare&logoColor=F38020)](https://pages.cloudflare.com)
@@ -180,7 +180,7 @@ Thanks to everyone who has helped build AppKade Open.
 
 ## 📄 License
 
-MIT license for this website's original code. Other AppKade projects carry their own licenses. Inter is used under the [SIL Open Font License](public/fonts/Inter-LICENSE.txt).
+MIT license for this website's original code. The hero shader in `src/scripts/singularity.ts` is adapted from XorDev and licensed CC BY-NC-SA 3.0, which restricts commercial reuse. See [LICENSE](LICENSE). Other AppKade projects carry their own licenses; some previews have not selected a license yet. Inter is used under the [SIL Open Font License](public/fonts/Inter-LICENSE.txt).
 
 <div align="center">
 <br />

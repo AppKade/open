@@ -45,19 +45,22 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || '0x4AAAAAAFW2WZiJXaN
      finally{busy=false;if(widgetId) challenge()?.reset(widgetId);button.disabled=false;}
    }
    button.addEventListener('click',()=>{
-     if(busy) return;
+     if(busy||pending) return;
      const token=widget.querySelector<HTMLInputElement>('[name="cf-turnstile-response"]')?.value;
      if(token){submit(token);return;}
      if(!challenge()){say('Verification is loading');return;}
      pending=true;widget.hidden=false;say('Verifying…');
      // The check stays invisible unless Cloudflare needs a click, and only a
      // click submits: tokens issued after a reset wait for the next click.
+     if(widgetId!==undefined) challenge().reset(widgetId);
      widgetId ??= challenge().render(widget,{
-       sitekey:voting.dataset.turnstileSitekey,size:'compact',theme:'dark',appearance:'interaction-only',
+       sitekey:voting.dataset.turnstileSitekey,action:'vote',size:'compact',theme:'dark',appearance:'interaction-only',
        callback:(value:string)=>{if(pending){pending=false;submit(value);}},
        'before-interactive-callback':()=>{widget.dataset.interactive='';say('Confirm you are human');},
        'after-interactive-callback':()=>{delete widget.dataset.interactive;},
        'error-callback':()=>{pending=false;widget.hidden=true;say('Verification failed',true);},
+       'expired-callback':()=>{pending=false;say('Verification expired. Try again.',true);},
+       'timeout-callback':()=>{pending=false;say('Verification timed out. Try again.',true);},
      });
    });
    reload();

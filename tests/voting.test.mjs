@@ -78,6 +78,7 @@ test("voting submits only after a click, scopes requests, and reports counts for
   votes[1].handlers.click();
   assert.equal(renders.length, 1);
   assert.equal(renders[0].widget, votes[1].widget);
+  assert.equal(renders[0].options.action, 'vote');
   assert.equal(renders[0].options.appearance, "interaction-only", "the check stays hidden unless a click is needed");
   assert.equal(votes[1].widget.hidden, false);
   assert.equal(requests.length, 2, "a click without a token must not submit");
@@ -104,4 +105,13 @@ test("voting submits only after a click, scopes requests, and reports counts for
   const removal = requests.filter((r) => r.opts.method).at(-1);
   assert.equal(removal.opts.method, "DELETE", "a second vote removes the upvote");
   assert.equal(renders.length, 1, "the challenge is rendered once per project");
+
+  votes[0].handlers.click();
+  votes[0].handlers.click();
+  assert.equal(renders.length, 2, "repeated clicks while pending must not replace the challenge");
+  renders[1].options['timeout-callback']();
+  votes[0].handlers.click();
+  assert.equal(resets.at(-1), 'widget-2', "retry restarts an existing timed-out challenge");
+  assert.equal(renders.length, 2);
+
 });

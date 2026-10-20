@@ -6,7 +6,7 @@ import statsSnapshot from '../../data/project-stats.json';
 export interface Project {
   repoId:number; repo:string; slug:string; name:string; description:string;
   category:string; status:'planned'|'experimental'|'active'|'archived'; featured:boolean;
-  homepage:string; installation:string; language:string; tags:string[];
+  homepage:string; installation:string; language:string; tags:string[]; license:string;
 }
 export interface Contribution {repoId:number;repo:string;number:number;url:string;title:string;category:string;points:number;mergedAt:string}
 export interface Contributor {githubId:number;login:string;avatarUrl:string;points:number;monthlyPoints:number;firstMergedAt:string;badges:string[];prs:Contribution[]}
