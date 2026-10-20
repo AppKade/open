@@ -44,6 +44,8 @@ AppKade Open is the open side of [AppKade](https://appkade.lk): one place to dis
 | [**Legacy Bridge**](https://github.com/AppKade/legacy-bridge) | Inspect SOAP/WSDL operations and run preliminary XML and import checks. | 🧪 Experimental |
 | [**AppKade Open**](https://github.com/AppKade/open) | This website: project discovery and contributor recognition. | 🧪 Experimental |
 | [**Singularity**](https://github.com/AppKade/singularity) | An animated WebGL black hole for your website, with a live [playground](https://appkade.github.io/singularity/). | 🧪 Experimental |
+| [**LK Tax MCP**](https://github.com/AppKade/lk-tax-mcp) | Local Sri Lankan income tax estimates through MCP. Development preview, not ready for filing. | 🧪 Experimental |
+| [**LK Transit MCP**](https://github.com/AppKade/lk-transit-mcp) | Requirements and research for a Sri Lankan bus transit MCP. No runnable server yet. | 📋 Planned |
 
 Every merged PR to any of these repositories counts toward your recognition on [open.appkade.lk](https://open.appkade.lk/#community).
 

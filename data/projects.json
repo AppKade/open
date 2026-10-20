@@ -70,5 +70,41 @@
       "Shader",
       "Zero dependencies"
     ]
+  },
+  {
+    "repoId": 1425078922,
+    "repo": "AppKade/lk-tax-mcp",
+    "slug": "lk-tax-mcp",
+    "name": "LK Tax MCP",
+    "description": "Local Sri Lankan individual income tax estimates through MCP, with deterministic calculations and cited results. Development preview, not ready for filing.",
+    "category": "MCP tools",
+    "status": "experimental",
+    "featured": false,
+    "homepage": "https://github.com/AppKade/lk-tax-mcp",
+    "installation": "# Requires Node.js 22.18+\ngit clone https://github.com/AppKade/lk-tax-mcp.git\ncd lk-tax-mcp\nnpm ci --ignore-scripts\nnpm run build\nnpm start",
+    "language": "TypeScript",
+    "tags": [
+      "MCP",
+      "Sri Lanka",
+      "Local-first"
+    ]
+  },
+  {
+    "repoId": 1426977039,
+    "repo": "AppKade/lk-transit-mcp",
+    "slug": "lk-transit-mcp",
+    "name": "LK Transit MCP",
+    "description": "Planning an MCP interface for Sri Lankan bus schedules and live transit data. Requirements and feasibility research only; no runnable server or live service yet.",
+    "category": "MCP tools",
+    "status": "planned",
+    "featured": false,
+    "homepage": "https://github.com/AppKade/lk-transit-mcp",
+    "installation": "# Requirements and research only; no runnable server yet.\ngit clone https://github.com/AppKade/lk-transit-mcp.git\ncd lk-transit-mcp\n# Read requirement.md for the scope and proposed roadmap.",
+    "language": "Not implemented",
+    "tags": [
+      "MCP",
+      "Public transport",
+      "Research"
+    ]
   }
 ]
