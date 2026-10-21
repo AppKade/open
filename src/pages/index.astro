@@ -26,7 +26,7 @@ const jsonLd=JSON.stringify({'@context':'https://schema.org','@graph':[
   {'@type':'ItemList',name:'AppKade open-source projects',itemListElement:ranked.map(({project},index)=>({'@type':'ListItem',position:index+1,item:{'@type':'SoftwareSourceCode',name:project.name,description:project.description,url:`${site}#project-${project.slug}`,codeRepository:`https://github.com/${project.repo}`,programmingLanguage:project.language,keywords:project.tags.join(', ')}}))},
 ]}).replace(/</g,'\\u003c');
 ---
-<Base title="Open-source tools, built together" description="Open-source developer tools, CLIs and MCP servers from AppKade, Sri Lanka. Use them, improve the code and get credit for every merged pull request.">
+<Base title="Open-source tools, built together" description="Free, open-source developer tools, CLIs, MCP servers and UI components for builders everywhere. Use them, improve the code and get credit for every merged PR.">
 <script type="application/ld+json" set:html={jsonLd}/>
 <section class="hero" aria-labelledby="intro">
   <canvas id="singularity" class="hero-singularity" aria-hidden="true"></canvas>
