@@ -18,8 +18,16 @@ const compact=new Intl.NumberFormat('en',{notation:'compact'});
 // Server order uses stars; the client re-ranks by upvotes once counts load.
 const ranked=projects.map((project,index)=>({project,index,stats:projectStats.projects[String(project.repoId)],icon:iconFor(project.slug)}))
   .sort((a,b)=>(b.stats?.stars??0)-(a.stats?.stars??0)||a.index-b.index);
+const site='https://open.appkade.lk/';
+// Escape "<" so registry text can never close the JSON-LD script tag.
+const jsonLd=JSON.stringify({'@context':'https://schema.org','@graph':[
+  {'@type':'Organization','@id':'https://appkade.lk/#organization',name:'AppKade',url:'https://appkade.lk/',logo:new URL('/appkade-mark.svg',site).href,sameAs:['https://github.com/AppKade']},
+  {'@type':'WebSite','@id':`${site}#website`,name:'AppKade Open',url:site,publisher:{'@id':'https://appkade.lk/#organization'}},
+  {'@type':'ItemList',name:'AppKade open-source projects',itemListElement:ranked.map(({project},index)=>({'@type':'ListItem',position:index+1,item:{'@type':'SoftwareSourceCode',name:project.name,description:project.description,url:`${site}#project-${project.slug}`,codeRepository:`https://github.com/${project.repo}`,programmingLanguage:project.language,keywords:project.tags.join(', ')}}))},
+]}).replace(/</g,'\\u003c');
 ---
-<Base title="Useful software, built together" description="Explore AppKade's open-source projects. Use the tools, improve the code, and build something useful together on GitHub.">
+<Base title="Open-source tools, built together" description="Open-source developer tools, CLIs and MCP servers from AppKade, Sri Lanka. Use them, improve the code and get credit for every merged pull request.">
+<script type="application/ld+json" set:html={jsonLd}/>
 <section class="hero" aria-labelledby="intro">
   <canvas id="singularity" class="hero-singularity" aria-hidden="true"></canvas>
   <div class="shell hero-copy">
