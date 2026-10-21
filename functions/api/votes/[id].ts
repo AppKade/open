@@ -3,7 +3,7 @@ interface Env { DB: D1Database; TURNSTILE_SECRET?: string; VOTE_COOKIE_SECRET?: 
 type Ctx = {request: Request; env: Env; params: {id?: string|string[]}};
 const cookieName = 'ak_open_visitor';
 function json(value:unknown,status=200){return Response.json(value,{status,headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});}
-function cookieValue(request:Request){return (request.headers.get('cookie')??'').split('; ').find(c=>c.startsWith(cookieName+'='))?.slice(cookieName.length+1)??'';}
+function cookieValue(request:Request){return (request.headers.get('cookie')??'').split(';').map(c=>c.trim()).find(c=>c.startsWith(cookieName+'='))?.slice(cookieName.length+1)??'';}
 function bytes(input:string){return new TextEncoder().encode(input);}
 async function hmac(key:string,message:string){
  const cryptoKey=await crypto.subtle.importKey('raw',bytes(key),{name:'HMAC',hash:'SHA-256'},false,['sign','verify']);
@@ -19,14 +19,14 @@ async function visitor(request:Request,secret:string){
  return valid ? match[1] : null;
 }
 async function hashId(id:string,secret:string){return hmac(secret,`db:${id}`);}
-async function verifyTurnstile(token:string,secret:string){
+async function verifyTurnstile(token:string,secret:string,hostname:string){
  const body=new FormData();body.set('secret',secret);body.set('response',token);
  const abort=AbortSignal.timeout(6000);
  const response=await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify',{method:'POST',body,signal:abort});
  if(!response.ok)return false;
  const data: {success?:boolean;hostname?:string;action?:string}=await response.json();
- // Production and Pages preview deployments may have different hostnames; originating request is checked separately.
- return data.success===true;
+ // Bind the challenge to this deployment and to the voting action.
+ return data.success===true && data.hostname===hostname && data.action==='vote';
 }
 export const onRequest = async ({request,env,params}:Ctx):Promise<Response>=>{
  try{
@@ -49,10 +49,27 @@ export const onRequest = async ({request,env,params}:Ctx):Promise<Response>=>{
   if(request.headers.get('content-type')?.split(';')[0]!=='application/json')return json({error:'Expected JSON'},415);
   if(!secret||!env.TURNSTILE_SECRET)return json({error:'Voting unavailable'},503);
   if(Number(request.headers.get('content-length')??'0')>4096)return json({error:'Request too large'},413);
-  let payload:{token?:unknown};
-  try{payload=await request.json();}catch{return json({error:'Invalid JSON'},400);}
-  if(typeof payload.token!=='string'||!payload.token||payload.token.length>2048)return json({error:'Verification required'},400);
-  const allowed=await verifyTurnstile(payload.token,env.TURNSTILE_SECRET);
+  // Content-Length can be missing or forged; enforce the limit while reading.
+  const reader=request.body?.getReader();
+  const chunks:Uint8Array[]=[];let size=0;
+  if(reader){
+    try{
+      while(true){
+        const {done,value}=await reader.read();if(done)break;
+        size+=value.byteLength;
+        if(size>4096){await reader.cancel();return json({error:'Request too large'},413);}
+        chunks.push(value);
+      }
+    }finally{reader.releaseLock();}
+  }
+  const body=new Uint8Array(size);let offset=0;
+  for(const chunk of chunks){body.set(chunk,offset);offset+=chunk.byteLength;}
+  let payload:unknown;
+  try{payload=JSON.parse(new TextDecoder().decode(body));}catch{return json({error:'Invalid JSON'},400);}
+  if(!payload||typeof payload!=='object'||Array.isArray(payload))return json({error:'Expected JSON object'},400);
+  const token=(payload as {token?:unknown}).token;
+  if(typeof token!=='string'||!token||token.length>2048)return json({error:'Verification required'},400);
+  const allowed=await verifyTurnstile(token,env.TURNSTILE_SECRET,new URL(request.url).hostname);
   if(!allowed)return json({error:'Verification unsuccessful'},403);
   if(request.method==='DELETE' && !existing)return json({error:'Nothing to remove'},400);
   const idString=existing ?? crypto.randomUUID();

@@ -9,13 +9,14 @@
     "status": "experimental",
     "featured": true,
     "homepage": "https://github.com/AppKade/lanka-qr-cli",
-    "installation": "# Requires Node.js 22+\ngit clone https://github.com/AppKade/lanka-qr-cli.git\ncd lanka-qr-cli\nnpm install\nnpm test\nnpm run build\nnpm run dev -- parse \"00020153031445802LK\"",
+    "installation": "# Requires Node.js 22.18+\ngit clone https://github.com/AppKade/lanka-qr-cli.git\ncd lanka-qr-cli\nnpm install\nnpm test\nnpm run build\nnpm run dev -- parse \"00020153031445802LK\"",
     "language": "TypeScript",
     "tags": [
       "CLI",
       "QR payloads",
       "Offline"
-    ]
+    ],
+    "license": "MIT"
   },
   {
     "repoId": 1421038454,
@@ -33,7 +34,8 @@
       "CLI",
       "SOAP / WSDL",
       "Offline"
-    ]
+    ],
+    "license": "MIT"
   },
   {
     "repoId": 1419259262,
@@ -51,7 +53,8 @@
       "Astro",
       "Open source",
       "Cloudflare"
-    ]
+    ],
+    "license": "MIT; hero shader CC BY-NC-SA 3.0"
   },
   {
     "repoId": 1423559341,
@@ -69,7 +72,8 @@
       "WebGL",
       "Shader",
       "Zero dependencies"
-    ]
+    ],
+    "license": "CC BY-NC-SA 3.0 component; MIT playground"
   },
   {
     "repoId": 1425078922,
@@ -87,7 +91,8 @@
       "MCP",
       "Sri Lanka",
       "Local-first"
-    ]
+    ],
+    "license": "License not yet specified"
   },
   {
     "repoId": 1426977039,
@@ -105,6 +110,7 @@
       "MCP",
       "Public transport",
       "Research"
-    ]
+    ],
+    "license": "License not yet specified"
   }
 ]
