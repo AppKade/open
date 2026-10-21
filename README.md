@@ -137,7 +137,7 @@ GitHub is the source of truth for projects and contribution history; D1 stores a
 
 Edit `data/projects.json` with verified public repositories owned by the AppKade organization. Include the **numeric** GitHub repository ID. New projects require a working README and actual installation instructions; do not invent release or contributor metrics. To make a project votable, also add a numbered migration in `migrations/` that inserts its `repo_id` and `slug` into `published_projects`.
 
-`pnpm sync` generates `data/contributors.json`, `data/activity.json` and `data/project-stats.json` from GitHub. To give a project a custom icon, add a square SVG at `public/images/projects/<slug>.svg` (preferred) or a PNG at `public/images/projects/<slug>.png`; otherwise its initials are shown. Adding `public/og-image.jpg` (1200×630) turns on link previews. The deploy workflow syncs before every build without pushing generated files back to git, so do not commit sync output.
+`pnpm sync` generates `data/contributors.json`, `data/activity.json` and `data/project-stats.json` from GitHub. To give a project a custom icon, add a square illustration at `public/images/projects/<slug>-illustrated.webp` (preferred), an SVG at `public/images/projects/<slug>.svg`, or a PNG at `public/images/projects/<slug>.png`; otherwise its initials are shown. The current illustrated set uses original image-generated artwork optimized to 320px WebP. Adding `public/og-image.jpg` (1200×630) turns on link previews. The deploy workflow syncs before every build without pushing generated files back to git, so do not commit sync output.
 
 ### D1 voting
 
