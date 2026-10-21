@@ -1,0 +1,31 @@
+{
+  "generator": "Built-in image generation tool",
+  "common_prompt": "Create one distinctive illustrated repository icon, square 1024x1024. Art direction: premium editorial spot illustration made from layered cut paper with soft hand-painted gouache shading, bold rounded silhouettes, a little dimensional depth, tactile matte surfaces, clean controlled edges. Must remain recognizable when reduced to 52 pixels. One compact centered composition filling 82% of the canvas, generous safe margins, full-bleed solid pale background, no outer border, no drawn app-icon frame. No text, letters, numbers, logos, watermark, UI, gradients, neon, glow, or green color palette. Charming and inventive, not a stock line icon, not photorealistic, not glossy 3D. ",
+  "assets": [
+    {
+      "path": "public/images/projects/lanka-qr-cli-illustrated.webp",
+      "subject_prompt": "Project: LankaQR CLI, an offline QR payload inspection and generation toolkit. Subject: a small sculptural cobalt-blue desktop ticket scanner with one large warm amber paper ticket passing through its curved slot. The ticket has a bold, intentionally nonfunctional dark navy QR-like mosaic with three large square finder marks, no tiny fine detail. A short terracotta paper curl at the ticket edge gives character. Palette cobalt, amber and terracotta on pale warm cream #fff0d9. Show the ticket and scanner as one simple cohesive object in a gentle three-quarter view."
+    },
+    {
+      "path": "public/images/projects/legacy-bridge-illustrated.webp",
+      "subject_prompt": "Project: Legacy Bridge, software that connects old SOAP/XML services to modern APIs. Subject: a charming terracotta arched bridge, with one chunky antique brass connector block on its left bank and one smooth periwinkle-blue glasslike but matte cube on its right bank, joined across the bridge by a single curled paper ribbon. The bridge is the dominant silhouette; two supporting blocks only. Keep old-to-new integration as a visual metaphor, no writing or code characters. Palette brick red, dusty brass and periwinkle on pale peach #ffe7df."
+    },
+    {
+      "path": "public/images/projects/appkade-open-illustrated.webp",
+      "subject_prompt": "Project: AppKade Open, a shared home for open-source software and community contributions. Subject: an open sky-blue carpenter's toolbox viewed three-quarter, with its lid folded back and three chunky paper building blocks in coral, golden yellow and periwinkle arranged as a small collaborative arch rising from the box. A distinctive friendly metaphor for useful things built together. One cohesive sculptural illustration, no people or hands. Palette sky blue, coral, buttery yellow on pale icy blue #e4f3ff."
+    },
+    {
+      "path": "public/images/projects/singularity-illustrated.webp",
+      "subject_prompt": "Project: Singularity, a WebGL black-hole visualization component. Subject: a dramatic miniature black hole formed from a deep plum circular void encircled by a thick, visibly layered curled lavender paper accretion ribbon sweeping diagonally around it. The ribbon passes behind and in front of the void with a warm coral inner edge. Two small irregular paper stars only, not a field of dots. Strong bold center and orbital silhouette. Palette violet, lavender, plum and a touch of coral on pale lilac #eee7ff. Do not use green, neon or glow."
+    },
+    {
+      "path": "public/images/projects/lk-tax-mcp-illustrated.webp",
+      "subject_prompt": "Project: LK Tax MCP, a local income-tax calculation assistant. Subject: a chunky periwinkle-blue mechanical adding machine with a large terracotta plus-shaped key and three small cream square keys, printing a single ivory paper receipt that curls into a smooth arch. The receipt has only three short abstract ink dashes, no writing, numbers or currency symbols. Distinctive tactile miniature accounting machine, warm and precise. Palette periwinkle, terracotta, ivory and dark blue on pale powder blue #e8edff."
+    },
+    {
+      "path": "public/images/projects/lk-transit-mcp-illustrated.webp",
+      "subject_prompt": "Project: LK Transit MCP, a Sri Lankan public-bus information toolkit. Subject: a friendly coral-red single-decker public bus, viewed in a bold front three-quarter perspective, with one large dark navy windshield, warm cream roof, two simple round headlights and chunky small wheels. A short curved mustard-yellow paper road ribbon curls beneath the front wheel, creating a memorable single silhouette. No text, route number, license plate, logos, people or flag. Palette coral red, navy, cream and mustard on pale blush #ffe7ef."
+    }
+  ],
+  "delivery": "Generated independently, then resized and encoded as 320x320 WebP assets for the 52px desktop / 44px mobile repository cards."
+}

@@ -7,11 +7,11 @@ import {projects,contributors,activity,projectStats} from '../lib/data';
 import {WEIGHTS} from '../lib/scoring.mjs';
 const people=[...contributors].sort((a,b)=>b.points-a.points||a.login.localeCompare(b.login));
 const prs=people.reduce((n,p)=>n+p.prs.length,0);
-// Prefer crisp project-specific SVGs; retain PNG support for future additions.
+// Prefer the generated illustration set; retain SVG/PNG support for future additions.
 // Not under /projects/: public/_redirects sends that path home.
 const iconFor=(slug:string)=>{
-  const extension=['svg','png'].find(ext=>fs.existsSync(`public/images/projects/${slug}.${ext}`));
-  return extension?`/images/projects/${slug}.${extension}`:null;
+  const extension=['-illustrated.webp','.svg','.png'].find(ext=>fs.existsSync(`public/images/projects/${slug}${ext}`));
+  return extension?`/images/projects/${slug}${extension}`:null;
 };
 const initials=(name:string)=>name.split(/\s+/).slice(0,2).map(word=>word[0]).join('').toUpperCase();
 const compact=new Intl.NumberFormat('en',{notation:'compact'});
