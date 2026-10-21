@@ -1041,9 +1041,7 @@ html[data-motion="off"] *:after {
   display: grid;
   place-items: center;
   overflow: hidden;
-  border: 1px solid #5fc27e30;
-  background: radial-gradient(circle at 30% 20%, #5fc27e26, #0b1714 70%);
-  box-shadow: 0 0 30px #5fc27e14;
+  background: #1b2029;
 }
 .project-icon img[width="56"] {
   width: 100%;

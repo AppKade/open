@@ -7,9 +7,12 @@ import {projects,contributors,activity,projectStats} from '../lib/data';
 import {WEIGHTS} from '../lib/scoring.mjs';
 const people=[...contributors].sort((a,b)=>b.points-a.points||a.login.localeCompare(b.login));
 const prs=people.reduce((n,p)=>n+p.prs.length,0);
-// Drop a PNG into public/images/projects/<slug>.png to replace a project's
-// monogram. Not under /projects/: public/_redirects sends that path home.
-const iconFor=(slug:string)=>fs.existsSync(`public/images/projects/${slug}.png`)?`/images/projects/${slug}.png`:null;
+// Prefer crisp project-specific SVGs; retain PNG support for future additions.
+// Not under /projects/: public/_redirects sends that path home.
+const iconFor=(slug:string)=>{
+  const extension=['svg','png'].find(ext=>fs.existsSync(`public/images/projects/${slug}.${ext}`));
+  return extension?`/images/projects/${slug}.${extension}`:null;
+};
 const initials=(name:string)=>name.split(/\s+/).slice(0,2).map(word=>word[0]).join('').toUpperCase();
 const compact=new Intl.NumberFormat('en',{notation:'compact'});
 // Server order uses stars; the client re-ranks by upvotes once counts load.
