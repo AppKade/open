@@ -26,8 +26,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
+      - run: node scripts/check-seo.mjs
       - uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy dist --project-name=appkade-open --branch=main
+      - name: Notify IndexNow after publishing
+        continue-on-error: true
+        run: node scripts/submit-indexnow.mjs

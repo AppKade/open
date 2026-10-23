@@ -99,18 +99,18 @@
     "repo": "AppKade/lk-transit-mcp",
     "slug": "lk-transit-mcp",
     "name": "LK Transit MCP",
-    "description": "Planning an MCP interface for Sri Lankan bus schedules and live transit data. Requirements and feasibility research only; no runnable server or live service yet.",
+    "description": "A local MCP prototype for Sri Lankan transit development, with nearby-stop search, routes and synthetic arrivals. Demo data only; no live feeds or travel service.",
     "category": "MCP tools",
-    "status": "planned",
+    "status": "experimental",
     "featured": false,
     "homepage": "https://github.com/AppKade/lk-transit-mcp",
-    "installation": "# Requirements and research only; no runnable server yet.\ngit clone https://github.com/AppKade/lk-transit-mcp.git\ncd lk-transit-mcp\n# Read requirement.md for the scope and proposed roadmap.",
-    "language": "Not implemented",
+    "installation": "# Requires Node.js 22.18+ or 24\ngit clone https://github.com/AppKade/lk-transit-mcp.git\ncd lk-transit-mcp\nnpm ci --ignore-scripts\nnpm run check\nnpm test\nnpm start -- --demo",
+    "language": "TypeScript",
     "tags": [
       "MCP",
       "Public transport",
-      "Research"
+      "Synthetic demo"
     ],
-    "license": "License not yet specified"
+    "license": "Apache-2.0"
   }
 ]

@@ -2,4 +2,19 @@ User-agent: *
 Disallow: /api/
 Allow: /
 
+# Search indexing and user-requested retrieval. Repeat the API exclusion because
+# specific user-agent groups do not inherit the wildcard group's rules.
+# Explicit Allow also wins equal-path ties with Cloudflare-prepended groups.
+User-agent: Googlebot
+User-agent: Bingbot
+User-agent: OAI-SearchBot
+User-agent: Claude-SearchBot
+User-agent: PerplexityBot
+User-agent: ChatGPT-User
+User-agent: Claude-User
+User-agent: Perplexity-User
+Disallow: /api/
+Allow: /
+Content-Signal: search=yes, ai-input=yes
+
 Sitemap: https://open.appkade.lk/sitemap.xml
